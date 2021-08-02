@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="wrapper">
+   
+      <img src="../../assets/profile.svg" alt="">
+    
+    <div class="title">
+{{employee.name}}</div>
+<div class="content" >
+  {{employee.designation}}</div>
+  <div class="content" >
+    {{employee.email}}</div>
+<br>
+
+<hr>
+<hr>
+<br>
+<div class="data-wrapper">
+
+
+  <div class="place" id="salary">
+    CTC:&nbsp;₹{{employee.salary}}
+   </div>
+  </div>
+</div>
+<br>
+
+<div class="content">
+   - &nbsp; <p *ngFor="let skill of employee.skills">
+{{skill}} &nbsp; - &nbsp;</p>
+</div>
+

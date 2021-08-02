@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><h5>Employee Management System</h5> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<mat-card class="flexdisp">
+  <br>
+  <mat-card class="inner-flexdisp">
+    <div *ngIf="employee" class="details-wrapper">
+      <p>Name :  {{employee.name}}</p>
+      <p>Designation : {{employee.designation}}</p>
+      <p>Salary : ₹{{employee.salary}}</p>
+      <p *ngIf="employee.isManager">Manager: YES</p>
+      <p *ngIf="!employee.isManager">Manager: NO</p>
+      <p>Date of joining : {{employee.DOJ  |  date:'dd/MM/yyyy'}}</p>
+      <p>Skills : <span *ngFor="let skill of employee.skills">{{skill}} -  </span></p>
+    </div>
+    <button style="margin: 0px 20px;" mat-raised-button (click)="editEmployee()">Edit</button>
+  </mat-card>
+  <mat-card class="inner-flexdisp">
+    <div class="filter-wrapper">
+      <mat-form-field class="filter-component">
+        <input type="text"
+               placeholder="Search by name"
+               aria-label="Number"
+               matInput
+               [formControl]="autoComplete" autocomplete="off">
+      </mat-form-field>
+      <ng5-slider *ngIf="employee.isManager" class="filter-component" (valueChange)="filter()" [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+      <mat-form-field class="filter-component">
+        <input type="text"
+               placeholder="Search by designation"
+               aria-label="Number"
+               matInput
+               [formControl]="autoComplete2" autocomplete="off">
+      </mat-form-field>
+     
+     
+    </div>
+    <br/>
+    <div>
+      <mat-form-field>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let skill of skills" (removed)="remove(skill)">
+            {{skill}} <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 (matChipInputTokenEnd)="add($event)"
+                 placeholder="Skills">
+        </mat-chip-list>
+        <mat-error>At least one skill is required</mat-error>
+      </mat-form-field>
+    </div>
+    <button style="float: right; margin-top: 65px;margin-right: 15px;" mat-raised-button (click)="applyFilter()">Filter</button>
+
+  </mat-card>
+</mat-card>
+<mat-card>
+  <mat-card-title style="text-align: center;margin-top: 10px;margin-bottom: 2px;">Search</mat-card-title>
+  <br>
+<mat-card>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>S.no</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Date of Joining</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employeesList; let i = index ">
+        <td>{{i + 1}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.designation}}</td>
+        <td>{{employee.DOJ |  date:'MM/dd/yyyy'}}</td>
+        <td class="button-wrapper">
+          <button mat-raised-button (click)="viewButtonClicked(employee._id)">View</button>
+          <button *ngIf="user.isManager" mat-raised-button (click)="editButtonClicked(employee._id)" color="primary">Edit</button>
+          <button *ngIf="user.isManager" mat-raised-button (click)="deleteButtonClicked(employee._id)" color="warn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- <table class="employee-wrapper">
+    <tr>
+      <th>S.no</th>
+      <th>Name</th>
+      <th>Designation</th>
+      <th>Date of Joining</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let employee of employeesList; let i = index ">
+      <td>{{i + 1}}</td>
+      <td>{{employee.name}}</td>
+      <td>{{employee.designation}}</td>
+      <td>{{employee.DOJ |  date:'MM/dd/yyyy'}}</td>
+      <td class="button-wrapper">
+        <button mat-raised-button (click)="viewButtonClicked(employee._id)">View</button>
+        <button *ngIf="user.isManager" mat-raised-button (click)="editButtonClicked(employee._id)" color="primary">Edit</button>
+        <button *ngIf="user.isManager" mat-raised-button (click)="deleteButtonClicked(employee._id)" color="warn">Delete</button>
+      </td>
+    </tr>
+  </table> -->
+  </mat-card>
+</mat-card>

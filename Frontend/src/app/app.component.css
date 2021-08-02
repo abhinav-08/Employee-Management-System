@@ -1,0 +1,28 @@
+.header {
+  
+  color: white;
+  background: #0b1149;
+  display: flex;
+  padding: 10px;
+}
+.header p {
+  margin: 0px !important;
+  font: 30px sans-serif;
+}
+.header button {
+  margin-left: auto;
+  background: white;
+  margin-left: auto;
+}
+img
+{
+  margin-left: 1000px;
+  margin-top: 4px;
+  cursor: pointer;
+  height: 30px;
+}
+h4
+{ margin-bottom: 0px;
+  margin-top: 8px;
+  margin-left: 10px;
+}
